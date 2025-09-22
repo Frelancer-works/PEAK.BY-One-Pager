@@ -1,0 +1,802 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>PEAK.BY — Климатическое оборудование: каталог, объекты, документы</title>
+  <meta name="description" content="PEAK.BY — каталог климатического оборудования. Характеристики, документы, объекты внедрения, новости, сервисы. Личный кабинет дилера и выгрузка фидов.">
+  <link rel="canonical" href="https://peak.by/">
+  <meta name="robots" content="index,follow">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="PEAK.BY">
+  <meta property="og:title" content="PEAK.BY — Климатическое оборудование">
+  <meta property="og:description" content="Каталог, объекты, документы, базовый ЛК дилера и выгрузка фидов.">
+  <meta property="og:url" content="https://peak.by/">
+  <meta property="og:image" content="https://peak.by/og-image.jpg">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- JSON-LD: Organization + WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["Organization","WebSite"],
+    "name": "PEAK.BY",
+    "url": "https://peak.by/",
+    "logo": "https://peak.by/logo.svg",
+    "sameAs": [],
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://peak.by/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <style>
+    :root{
+      --brand-h: 210;
+      --brand-s: 70%;
+      --brand-l: 45%;
+      --brand: hsl(var(--brand-h) var(--brand-s) var(--brand-l));
+      --brand-2: hsl(210 14% 20%);
+      --bg: hsl(0 0% 100%);
+      --fg: hsl(217 25% 15%);
+      --muted: hsl(215 16% 53%);
+      --border: hsl(215 16% 85%);
+      --ok: hsl(155 55% 42%);
+      --warn: hsl(40 90% 50%);
+      --err: hsl(0 80% 50%);
+      --radius: 1.2rem;
+      --shadow: 0 0.2rem 0.8rem rgba(0,0,0,.06), 0 0.6rem 1.6rem rgba(0,0,0,.06);
+      font-size: 62.5%; /* 1rem = 10px базово */
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg: hsl(222 14% 10%);
+        --fg: hsl(0 0% 100%);
+        --muted: hsl(220 10% 70%);
+        --border: hsl(220 10% 25%);
+        --brand-2: hsl(210 10% 80%);
+        --shadow: 0 0 0 rgba(0,0,0,0);
+      }
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      font:400 1.6rem/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      letter-spacing:.01em;
+    }
+    a{color:var(--brand); text-decoration:none}
+    a:hover{text-decoration:underline}
+    img{max-width:100%; height:auto; display:block}
+    .container{width:min(120rem, 100% - 3.2rem); margin-inline:auto}
+
+    /* Header */
+    header.site-header{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.2) blur(.4rem);
+      border-bottom:.1rem solid var(--border); background:color-mix(in oklab, var(--bg) 85%, transparent);
+    }
+    .topbar{display:flex; align-items:center; gap:1.6rem; padding:1.2rem 0}
+    .brand{display:flex; align-items:center; gap:1.2rem; font-weight:700}
+    .brand__logo{inline-size:3.2rem; block-size:3.2rem; border-radius:.8rem; background:var(--brand); box-shadow:var(--shadow)}
+    .brand__name{font-size:1.8rem}
+    .search{
+      flex:1; display:flex; gap:.8rem; align-items:center; background:transparent; border:.1rem solid var(--border); border-radius:999rem; padding:.6rem 1.2rem;
+    }
+    .search input{
+      flex:1; border:0; outline:0; background:transparent; color:inherit; font-size:1.6rem; padding:.6rem;
+    }
+    .header-actions{display:flex; gap:.8rem}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+      padding:.9rem 1.4rem; border:.1rem solid var(--border); border-radius:999rem; background:transparent; color:inherit; cursor:pointer;
+    }
+    .btn--primary{background:var(--brand); border-color:var(--brand); color:white}
+    .btn--ghost{background:transparent}
+    .btn[aria-pressed="true"]{outline:.2rem solid color-mix(in oklab, var(--brand) 50%, transparent)}
+
+    nav.main-nav{display:flex; gap:1.2rem; padding:0 0 1.2rem 0; overflow:auto}
+    .chip{
+      white-space:nowrap; padding:.6rem 1.2rem; border:.1rem solid var(--border); border-radius:999rem; color:var(--brand-2); background:transparent
+    }
+    .chip--active{background:color-mix(in oklab, var(--brand) 8%, var(--bg)); border-color:color-mix(in oklab, var(--brand) 35%, var(--border)); color:inherit}
+
+    /* Hero */
+    .hero{padding:3.2rem 0 2.4rem 0; display:grid; gap:1.6rem}
+    .hero .panel{
+      border:.1rem solid var(--border); border-radius:var(--radius); padding:2rem; box-shadow:var(--shadow);
+      display:grid; grid-template-columns:1.6fr .9fr; gap:2rem;
+    }
+    .hero h1{margin:0 0 .6rem 0; font-size:2.6rem; line-height:1.25}
+    .hero p{margin:.4rem 0 1.2rem 0; color:var(--muted)}
+    .hero .stats{display:flex; gap:2.4rem; flex-wrap:wrap}
+    .stat{display:grid; gap:.4rem}
+    .stat b{font-size:2rem}
+
+    /* Section */
+    section{padding:2.4rem 0}
+    .section-title{display:flex; align-items:baseline; justify-content:space-between; gap:1.2rem; margin:0 0 1.2rem}
+    .section-title h2{margin:0; font-size:2.2rem}
+    .section-title .more{font-size:1.4rem}
+
+    /* Categories */
+    .grid{display:grid; gap:1.2rem}
+    .grid--cat{grid-template-columns:repeat(6,1fr)}
+    .card{
+      border:.1rem solid var(--border); border-radius:var(--radius); padding:1.2rem; box-shadow:var(--shadow); background:color-mix(in oklab, var(--bg) 92%, transparent);
+    }
+    .card h3{margin:.8rem 0 0 0; font-size:1.6rem}
+    .cat-thumb{inline-size:100%; aspect-ratio:4/3; border-radius:.8rem; background:color-mix(in oklab, var(--brand) 8%, transparent)}
+    @media (max-width: 75rem){ .grid--cat{grid-template-columns:repeat(3,1fr)} }
+    @media (max-width: 45rem){ .grid--cat{grid-template-columns:repeat(2,1fr)} }
+
+    /* Catalog */
+    .catalog{display:grid; grid-template-columns:28rem 1fr; gap:1.6rem}
+    .filters{position:sticky; top:7.2rem; align-self:start; border:.1rem solid var(--border); border-radius:var(--radius); padding:1.2rem}
+    .filters fieldset{border:0; margin:0 0 1.2rem; padding:0}
+    .filters legend{font-weight:600; margin:0 0 .6rem}
+    .filters .row{display:grid; gap:.6rem}
+    .filters label{display:flex; align-items:center; gap:.8rem}
+    .filters input[type="range"]{width:100%}
+    .filters .actions{display:flex; gap:.8rem}
+    .product-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem}
+    @media (max-width: 70rem){ .catalog{grid-template-columns:1fr} .filters{position:static} .product-grid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width: 45rem){ .product-grid{grid-template-columns:1fr} }
+
+    .product{
+      display:grid; gap:.8rem; padding:1.2rem; border:.1rem solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); background:color-mix(in oklab, var(--bg) 96%, transparent);
+    }
+    .product .thumb{inline-size:100%; aspect-ratio:4/3; border-radius:.8rem; background:color-mix(in oklab, var(--brand) 8%, transparent)}
+    .product h3{margin:0; font-size:1.6rem}
+    .badge{display:inline-flex; align-items:center; gap:.4rem; padding:.3rem .8rem; border:.1rem solid var(--border); border-radius:999rem; font-size:1.2rem; color:var(--muted)}
+    .price{font-weight:700}
+    .meta{display:flex; gap:.8rem; flex-wrap:wrap}
+    .row-h{display:flex; gap:.8rem; flex-wrap:wrap}
+    .product .actions{display:flex; gap:.8rem; flex-wrap:wrap}
+    .product button{white-space:nowrap}
+
+    /* Lists */
+    .list{display:grid; gap:.8rem}
+    .list--docs .item, .list--objects .item{
+      display:flex; gap:1.2rem; align-items:center;
+      border:.1rem solid var(--border); border-radius:.8rem; padding:1rem 1.2rem; background:color-mix(in oklab, var(--bg) 96%, transparent);
+    }
+    .item .icon{inline-size:2.4rem; block-size:2.4rem; border-radius:.6rem; background:color-mix(in oklab, var(--brand) 12%, transparent)}
+    .item .title{font-weight:600}
+    .item .sub{color:var(--muted); font-size:1.4rem}
+
+    /* News */
+    .news{display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem}
+    @media (max-width: 60rem){ .news{grid-template-columns:1fr 1fr} }
+    @media (max-width: 40rem){ .news{grid-template-columns:1fr} }
+
+    /* Footer */
+    footer{border-top:.1rem solid var(--border); margin-top:2.4rem; padding:2.4rem 0; color:var(--muted)}
+    .foot{display:grid; gap:1.2rem}
+    .foot small{color:var(--muted)}
+
+    /* Dialog / Modal */
+    dialog{
+      border:.1rem solid var(--border); border-radius:var(--radius); padding:0; box-shadow:var(--shadow); width:min(58rem, calc(100% - 3.2rem));
+      background:var(--bg); color:var(--fg);
+    }
+    dialog::backdrop{background:color-mix(in oklab, black 50%, transparent)}
+    .modal__head{display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1.2rem 1.6rem; border-bottom:.1rem solid var(--border)}
+    .modal__body{padding:1.6rem}
+    .form{display:grid; gap:1rem}
+    .form label{display:grid; gap:.4rem; font-weight:600}
+    .form input, .form select, .form textarea{
+      border:.1rem solid var(--border); border-radius:.8rem; padding:.9rem 1.2rem; background:transparent; color:inherit; font:inherit
+    }
+    .form .row{display:grid; gap:1rem; grid-template-columns:1fr 1fr}
+    @media (max-width: 40rem){ .form .row{grid-template-columns:1fr} }
+
+    /* Utilities */
+    .sr-only{position:absolute; inline-size:1px; block-size:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0}
+    .pill{display:inline-flex; align-items:center; gap:.4rem; padding:.3rem .8rem; border-radius:999rem; background:color-mix(in oklab, var(--brand) 12%, transparent)}
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <a href="#main" class="sr-only">Перейти к содержимому</a>
+
+  <!-- HEADER -->
+  <header class="site-header" role="banner">
+    <div class="container topbar" role="navigation" aria-label="Верхняя панель">
+      <a class="brand" href="/" aria-label="PEAK.BY — на главную">
+        <span class="brand__logo" aria-hidden="true"></span>
+        <span class="brand__name">PEAK.BY</span>
+      </a>
+
+      <form class="search" role="search" aria-label="Поиск по каталогу" onsubmit="eSearch(event)">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" fill="none"/><path d="M20 20L17 17" stroke="currentColor"/></svg>
+        <input id="q" name="q" type="search" placeholder="Поиск по моделям и параметрам…" autocomplete="off">
+        <button class="btn btn--ghost" type="submit">Найти</button>
+      </form>
+
+      <div class="header-actions">
+        <button class="btn" type="button" onclick="openDocs()">Документы</button>
+        <button class="btn" type="button" onclick="openObjects()">Объекты</button>
+        <button class="btn btn--primary" type="button" onclick="openAuth()">Войти/Регистрация</button>
+      </div>
+    </div>
+
+    <nav class="container main-nav" aria-label="Основная навигация">
+      <button class="chip chip--active" aria-pressed="true" onclick="filterByCat('all')">Все категории</button>
+      <button class="chip" onclick="filterByCat('sp')">Сплит-системы</button>
+      <button class="chip" onclick="filterByCat('vrf')">VRF</button>
+      <button class="chip" onclick="filterByCat('chiller')">Чиллеры</button>
+      <button class="chip" onclick="filterByCat('vent')">Вентиляция</button>
+      <button class="chip" onclick="filterByCat('other')">Прочее</button>
+    </nav>
+  </header>
+
+  <main id="main" class="container" tabindex="-1">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="panel">
+        <div>
+          <h1 id="hero-title">Каталог климатического оборудования PEAK.BY</h1>
+          <p>Характеристики, документы, объекты внедрения, сервисная информация. Для дилеров доступна выгрузка фидов и персональные условия.</p>
+          <div class="row-h">
+            <button class="btn btn--primary" type="button" onclick="scrollToCatalog()">Перейти в каталог</button>
+            <button class="btn" type="button" onclick="openContacts()">Контакты</button>
+          </div>
+          <div class="stats" aria-label="Ключевые показатели">
+            <div class="stat"><b><span id="stat-sku">—</span> SKU</b><span class="muted">в каталоге</span></div>
+            <div class="stat"><b><span id="stat-docs">—</span> документов</b><span class="muted">PDF/сертификация</span></div>
+            <div class="stat"><b><span id="stat-objects">—</span> объектов</b><span class="muted">с установленным оборудованием</span></div>
+          </div>
+        </div>
+        <div aria-hidden="true">
+          <div class="cat-thumb" style="aspect-ratio:16/9; border-radius:1.2rem"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section aria-labelledby="cat-title">
+      <div class="section-title">
+        <h2 id="cat-title">Категории</h2>
+        <a class="more" href="#" onclick="scrollToCatalog()">Открыть каталог</a>
+      </div>
+      <div class="grid grid--cat" id="cat-grid" role="list"></div>
+    </section>
+
+    <!-- CATALOG -->
+    <section aria-labelledby="catalog-title">
+      <div class="section-title">
+        <h2 id="catalog-title">Каталог</h2>
+        <div class="muted">Демо: 9 карточек, фильтры по мощности/бренду/типу</div>
+      </div>
+      <div class="catalog">
+        <!-- Filters -->
+        <aside class="filters" aria-label="Фильтры каталога">
+          <form id="filter-form" class="form" oninput="applyFilters()" onchange="applyFilters()">
+            <fieldset>
+              <legend>Мощность (кВт)</legend>
+              <div class="row">
+                <input type="range" id="rangeMin" min="2" max="50" step="1" value="2" aria-label="Минимальная мощность">
+                <input type="range" id="rangeMax" min="2" max="50" step="1" value="50" aria-label="Максимальная мощность">
+                <div class="row-h muted" style="justify-content:space-between">
+                  <span>от <b id="outMin">2</b></span>
+                  <span>до <b id="outMax">50</b></span>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Бренд</legend>
+              <div class="row" id="brand-list">
+                <!-- чекбоксы из данных -->
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Тип</legend>
+              <div class="row">
+                <label><input type="radio" name="type" value="" checked> Любой</label>
+                <label><input type="radio" name="type" value="sp"> Сплит-система</label>
+                <label><input type="radio" name="type" value="vrf"> VRF</label>
+                <label><input type="radio" name="type" value="chiller"> Чиллер</label>
+                <label><input type="radio" name="type" value="vent"> Вентиляция</label>
+              </div>
+            </fieldset>
+
+            <div class="actions">
+              <button type="button" class="btn" onclick="resetFilters()">Сбросить</button>
+              <button type="button" class="btn btn--primary" onclick="applyFilters()">Показать</button>
+            </div>
+          </form>
+        </aside>
+
+        <!-- Products -->
+        <div id="product-grid" class="product-grid" role="list"></div>
+      </div>
+    </section>
+
+    <!-- DOCUMENTS -->
+    <section aria-labelledby="docs-title">
+      <div class="section-title">
+        <h2 id="docs-title">Документы и библиотека</h2>
+        <a class="more" href="#" onclick="openDocs()">Смотреть все</a>
+      </div>
+      <div class="list list--docs" id="docs-list" role="list"></div>
+    </section>
+
+    <!-- OBJECTS -->
+    <section aria-labelledby="obj-title">
+      <div class="section-title">
+        <h2 id="obj-title">Объекты</h2>
+        <a class="more" href="#" onclick="openObjects()">Карта объектов</a>
+      </div>
+      <div class="list list--objects" id="objects-list" role="list"></div>
+    </section>
+
+    <!-- NEWS -->
+    <section aria-labelledby="news-title">
+      <div class="section-title">
+        <h2 id="news-title">Новости</h2>
+        <a class="more" href="#" onclick="openNews()">Все новости</a>
+      </div>
+      <div class="news" id="news-grid"></div>
+    </section>
+
+    <!-- CONTACTS -->
+    <section aria-labelledby="contacts-title">
+      <div class="section-title">
+        <h2 id="contacts-title">Контакты</h2>
+        <span class="muted">Минск и Москва</span>
+      </div>
+      <div class="list">
+        <div class="item" role="listitem">
+          <span class="icon" aria-hidden="true"></span>
+          <div>
+            <div class="title">Офис Минск</div>
+            <div class="sub">пр-т Победителей, 10 • +375 (29) 000-00-00 • work@peak.by</div>
+          </div>
+          <div class="pill" style="margin-left:auto">Склад: есть остатки</div>
+        </div>
+        <div class="item" role="listitem">
+          <span class="icon" aria-hidden="true"></span>
+          <div>
+            <div class="title">Офис Москва</div>
+            <div class="sub">ул. Примерная, 5 • +7 (495) 000-00-00 • msk@peak.by</div>
+          </div>
+          <div class="pill" style="margin-left:auto">Склад: есть остатки</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container foot">
+      <div class="row-h" style="justify-content:space-between; align-items:center">
+        <div class="muted">© <span id="y"></span> PEAK.BY</div>
+        <div class="row-h">
+          <button class="btn" type="button" onclick="openFeed()">Выгрузка фида (демо)</button>
+          <a class="btn" href="#" onclick="openPolicy()">Политика конфиденциальности</a>
+        </div>
+      </div>
+      <small>Демо-версия. Данные о ценах/остатках замокированы. Интеграции с ERP/складами подключаются на Этапе 2 (B2B).</small>
+    </div>
+  </footer>
+
+  <!-- MODALS -->
+  <dialog id="dlg-auth" aria-labelledby="dlg-auth-title">
+    <div class="modal__head">
+      <strong id="dlg-auth-title">Личный кабинет дилера</strong>
+      <button class="btn" onclick="closeDialog('dlg-auth')" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="modal__body">
+      <form class="form" onsubmit="eAuth(event)">
+        <div class="row">
+          <label>Эл. почта<input type="email" required placeholder="you@company.com"></label>
+          <label>Пароль<input type="password" required minlength="6" placeholder="••••••••"></label>
+        </div>
+        <div class="row">
+          <label>Компания<input type="text" placeholder="ООО «Пример»" required></label>
+          <label>ИНН/УНП<input type="text" placeholder="123456789"></label>
+        </div>
+        <div class="row">
+          <label>Город<select><option>Минск</option><option>Москва</option></select></label>
+          <label>Роль<select><option>Дилер</option><option>Сервис</option></select></label>
+        </div>
+        <div class="row-h">
+          <button class="btn btn--primary" type="submit">Зарегистрироваться</button>
+          <button class="btn" type="button" onclick="mockLogin()">У меня уже есть доступ</button>
+        </div>
+        <p class="muted">После модерации появится доступ к персональным ценам и остаткам (B2B).</p>
+      </form>
+    </div>
+  </dialog>
+
+  <dialog id="dlg-docs" aria-labelledby="dlg-docs-title">
+    <div class="modal__head">
+      <strong id="dlg-docs-title">Документы</strong>
+      <button class="btn" onclick="closeDialog('dlg-docs')" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="modal__body">
+      <div id="docs-modal-list" class="list list--docs"></div>
+    </div>
+  </dialog>
+
+  <dialog id="dlg-objects" aria-labelledby="dlg-objects-title">
+    <div class="modal__head">
+      <strong id="dlg-objects-title">Объекты</strong>
+      <button class="btn" onclick="closeDialog('dlg-objects')" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="modal__body">
+      <div id="objects-modal-list" class="list list--objects"></div>
+    </div>
+  </dialog>
+
+  <dialog id="dlg-feed" aria-labelledby="dlg-feed-title">
+    <div class="modal__head">
+      <strong id="dlg-feed-title">Выгрузка фида (демо)</strong>
+      <button class="btn" onclick="closeDialog('dlg-feed')" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="modal__body">
+      <div class="form">
+        <label>Формат
+          <select id="feed-format">
+            <option value="csv">CSV</option>
+            <option value="xlsx">XLSX</option>
+            <option value="yml">YML</option>
+            <option value="json">JSON</option>
+          </select>
+        </label>
+        <div class="row-h">
+          <button class="btn btn--primary" type="button" onclick="exportFeed()">Скачать фид</button>
+          <span class="muted">Демо-файл собран из текущей выборки каталога.</span>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="dlg-product" aria-labelledby="dlg-product-title">
+    <div class="modal__head">
+      <strong id="dlg-product-title">Карточка товара</strong>
+      <button class="btn" onclick="closeDialog('dlg-product')" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="modal__body" id="product-detail"></div>
+  </dialog>
+
+  <script>
+    // --- Мок-данные ----------------------------------------------------------
+    const DATA = {
+      categories: [
+        { id:"sp", name:"Сплит-системы", count:128 },
+        { id:"vrf", name:"VRF", count:64 },
+        { id:"chiller", name:"Чиллеры", count:18 },
+        { id:"vent", name:"Вентиляция", count:52 },
+        { id:"ahu", name:"Установки приточные", count:21 },
+        { id:"other", name:"Прочее", count:33 },
+      ],
+      products: [
+        { id:1, sku:"PE-SP-09", title:"Сплит PE-SP-09", type:"sp", brand:"Peak", power:2.5, docs:["Паспорт","Сертификат"], objects:2, price:"—", media:1 },
+        { id:2, sku:"PE-SP-18", title:"Сплит PE-SP-18", type:"sp", brand:"Peak", power:5.3, docs:["Паспорт"], objects:1, price:"—", media:1 },
+        { id:3, sku:"VRF-PE-140", title:"VRF наружный блок 140", type:"vrf", brand:"Peak Pro", power:14, docs:["Каталог","Сертификат"], objects:3, price:"—", media:1 },
+        { id:4, sku:"VRF-PE-224", title:"VRF наружный блок 224", type:"vrf", brand:"Peak Pro", power:22.4, docs:["Каталог"], objects:1, price:"—", media:1 },
+        { id:5, sku:"CH-PE-300", title:"Чиллер 300 кВт", type:"chiller", brand:"Peak Industrial", power:30, docs:["Паспорт","3D"], objects:1, price:"—", media:1 },
+        { id:6, sku:"CH-PE-500", title:"Чиллер 500 кВт", type:"chiller", brand:"Peak Industrial", power:50, docs:["Паспорт"], objects:0, price:"—", media:1 },
+        { id:7, sku:"VNT-PE-800", title:"Вентиляционная установка 800", type:"vent", brand:"Peak", power:8, docs:["Паспорт"], objects:4, price:"—", media:1 },
+        { id:8, sku:"VNT-PE-1200", title:"Вентиляционная установка 1200", type:"vent", brand:"Peak", power:12, docs:["Паспорт","Схема"], objects:2, price:"—", media:1 },
+        { id:9, sku:"AHU-PE-4000", title:"Приточная установка 4000", type:"ahu", brand:"Peak", power:10, docs:["Паспорт"], objects:1, price:"—", media:1 }
+      ],
+      docs: [
+        { id:"d1", title:"Каталог 2025", type:"PDF", size:"8.2 MB" },
+        { id:"d2", title:"Сертификаты соответствия", type:"PDF", size:"1.9 MB" },
+        { id:"d3", title:"Инструкция по монтажу VRF", type:"PDF", size:"3.1 MB" }
+      ],
+      objects: [
+        { id:"o1", title:"Бизнес-центр «Орион», Минск", models:["VRF-PE-140"], year:2024 },
+        { id:"o2", title:"Логистический хаб, Москва", models:["CH-PE-500","VNT-PE-1200"], year:2023 },
+        { id:"o3", title:"ТРЦ «Север», Минск", models:["VRF-PE-224"], year:2025 }
+      ],
+      news: [
+        { id:"n1", title:"Обновление VRF-линейки 2025", date:"2025-08-20" },
+        { id:"n2", title:"Новый чиллер 500 кВт", date:"2025-06-02" },
+        { id:"n3", title:"Объект: ТРЦ «Север»", date:"2025-05-14" }
+      ]
+    };
+
+    // --- Инициализация -------------------------------------------------------
+    const $ = s => document.querySelector(s);
+    const $$ = s => document.querySelectorAll(s);
+
+    const state = {
+      cat: 'all',
+      q: '',
+      power: { min: 2, max: 50 },
+      brands: new Set(),
+      type: ''
+    };
+
+    function init(){
+      // Статистика
+      $('#stat-sku').textContent = DATA.products.length;
+      $('#stat-docs').textContent = DATA.docs.length;
+      $('#stat-objects').textContent = DATA.objects.length;
+      $('#y').textContent = new Date().getFullYear();
+
+      // Категории
+      const catGrid = $('#cat-grid');
+      DATA.categories.forEach(c=>{
+        const el = document.createElement('a');
+        el.href = "#catalog-title";
+        el.className = 'card';
+        el.role = 'listitem';
+        el.innerHTML = `
+          <div class="cat-thumb" aria-hidden="true"></div>
+          <h3>${c.name}</h3>
+          <div class="muted">${c.count} позиций</div>
+        `;
+        el.addEventListener('click', ()=>filterByCat(c.id));
+        catGrid.appendChild(el);
+      });
+
+      // Бренды в фильтрах
+      const brands = [...new Set(DATA.products.map(p=>p.brand))].sort();
+      const wrap = $('#brand-list');
+      brands.forEach(b=>{
+        const id = `b-${b.replace(/\s+/g,'-').toLowerCase()}`;
+        const lab = document.createElement('label');
+        lab.innerHTML = `<input type="checkbox" value="${b}" id="${id}"> ${b}`;
+        wrap.appendChild(lab);
+      });
+
+      // Диапазоны мощности
+      const rMin = $('#rangeMin'), rMax = $('#rangeMax');
+      const outMin = $('#outMin'), outMax = $('#outMax');
+      const sync = ()=>{
+        const a = Math.min(+rMin.value, +rMax.value);
+        const b = Math.max(+rMin.value, +rMax.value);
+        state.power.min = a; state.power.max = b;
+        outMin.textContent = a; outMax.textContent = b;
+        applyFilters();
+      };
+      rMin.addEventListener('input', sync);
+      rMax.addEventListener('input', sync);
+      sync();
+
+      // Списки (документы/объекты/новости)
+      renderDocs('#docs-list', DATA.docs);
+      renderObjects('#objects-list', DATA.objects);
+      renderNews();
+
+      // Каталог
+      applyFilters();
+    }
+
+    // --- Рендер --------------------------------------------------------------
+    function renderProducts(list){
+      const grid = $('#product-grid');
+      grid.innerHTML = '';
+      list.forEach(p=>{
+        const el = document.createElement('article');
+        el.className = 'product'; el.role='listitem';
+        el.innerHTML = `
+          <div class="thumb" aria-hidden="true"></div>
+          <h3>${p.title}</h3>
+          <div class="meta">
+            <span class="badge">SKU: ${p.sku}</span>
+            <span class="badge">${p.brand}</span>
+            <span class="badge">${p.power} кВт</span>
+            <span class="badge">${typeName(p.type)}</span>
+          </div>
+          <div class="row-h">
+            <span class="price">Цена: ${p.price} <span class="muted">(персональная в B2B)</span></span>
+          </div>
+          <div class="row-h">
+            <button class="btn btn--primary" type="button" onclick="openProduct(${p.id})">Открыть</button>
+            <button class="btn" type="button" onclick="openDocsFor('${p.sku}')">Документы (${p.docs.length})</button>
+            <span class="muted">Объектов: ${p.objects}</span>
+          </div>
+        `;
+        grid.appendChild(el);
+      });
+    }
+
+    function renderDocs(sel, docs){
+      const box = document.querySelector(sel);
+      box.innerHTML = '';
+      docs.forEach(d=>{
+        const el = document.createElement('div');
+        el.className = 'item'; el.role='listitem';
+        el.innerHTML = `
+          <span class="icon" aria-hidden="true"></span>
+          <div>
+            <div class="title">${d.title}</div>
+            <div class="sub">${d.type} • ${d.size || '—'}</div>
+          </div>
+          <button class="btn btn--primary" type="button" style="margin-left:auto" onclick="downloadDoc('${d.id}')">Скачать</button>
+        `;
+        box.appendChild(el);
+      });
+    }
+
+    function renderObjects(sel, objects){
+      const box = document.querySelector(sel);
+      box.innerHTML = '';
+      objects.forEach(o=>{
+        const el = document.createElement('div');
+        el.className = 'item'; el.role='listitem';
+        el.innerHTML = `
+          <span class="icon" aria-hidden="true"></span>
+          <div>
+            <div class="title">${o.title}</div>
+            <div class="sub">Год: ${o.year} • Модели: ${o.models.join(', ')}</div>
+          </div>
+          <button class="btn" type="button" style="margin-left:auto" onclick="openObject('${o.id}')">Подробнее</button>
+        `;
+        box.appendChild(el);
+      });
+    }
+
+    function renderNews(){
+      const box = $('#news-grid'); box.innerHTML = '';
+      DATA.news.forEach(n=>{
+        const el = document.createElement('article');
+        el.className = 'card';
+        el.innerHTML = `
+          <div class="cat-thumb" aria-hidden="true"></div>
+          <h3 style="margin:.8rem 0 0 0">${n.title}</h3>
+          <div class="muted">${n.date}</div>
+        `;
+        box.appendChild(el);
+      });
+    }
+
+    // --- Фильтры и поиск -----------------------------------------------------
+    function applyFilters(){
+      const q = state.q.trim().toLowerCase();
+      const brands = new Set([...$$('#brand-list input[type="checkbox"]:checked')].map(i=>i.value));
+      state.brands = brands;
+      const type = ($$('input[name="type"]:checked')[0] || {}).value || '';
+      state.type = type;
+
+      let list = DATA.products.slice();
+      if(state.cat !== 'all'){ list = list.filter(p=>p.type === state.cat); }
+      if(q){ list = list.filter(p => (p.title + ' ' + p.sku + ' ' + p.brand).toLowerCase().includes(q)); }
+      if(brands.size){ list = list.filter(p => brands.has(p.brand)); }
+      list = list.filter(p => p.power >= state.power.min && p.power <= state.power.max);
+      if(type){ list = list.filter(p => p.type === type); }
+
+      renderProducts(list);
+    }
+
+    function resetFilters(){
+      $('#q').value=''; state.q='';
+      $$('#brand-list input').forEach(i=>i.checked=false);
+      $('input[name="type"][value=""]').checked = true;
+      $('#rangeMin').value=2; $('#rangeMax').value=50;
+      $('#rangeMin').dispatchEvent(new Event('input'));
+      $('#rangeMax').dispatchEvent(new Event('input'));
+      filterByCat('all');
+      applyFilters();
+    }
+
+    function eSearch(e){
+      e.preventDefault();
+      state.q = $('#q').value || '';
+      applyFilters();
+      scrollToCatalog();
+    }
+
+    function filterByCat(cat){
+      state.cat = cat;
+      $$('.main-nav .chip').forEach(b=>b.classList.remove('chip--active'));
+      const map = {all:0, sp:1, vrf:2, chiller:3, vent:4, other:5};
+      const idx = map[cat] ?? 0;
+      $$('.main-nav .chip')[idx].classList.add('chip--active');
+      applyFilters();
+      scrollToCatalog();
+    }
+
+    function typeName(code){
+      return {sp:'Сплит-система', vrf:'VRF', chiller:'Чиллер', vent:'Вентиляция', ahu:'Приточная', other:'Прочее'}[code] || '—';
+    }
+
+    function scrollToCatalog(){
+      $('#catalog-title').scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // --- Диалоги -------------------------------------------------------------
+    function openDialog(id){ const d = document.getElementById(id); d?.showModal(); }
+    function closeDialog(id){ const d = document.getElementById(id); d?.close(); }
+
+    function openAuth(){ openDialog('dlg-auth'); }
+    function openDocs(){ renderDocs('#docs-modal-list', DATA.docs); openDialog('dlg-docs'); }
+    function openObjects(){ renderObjects('#objects-modal-list', DATA.objects); openDialog('dlg-objects'); }
+    function openNews(){ alert('Демо: страница новостей в разработке'); }
+    function openContacts(){ document.getElementById('contacts-title').scrollIntoView({behavior:'smooth'}); }
+    function openFeed(){ openDialog('dlg-feed'); }
+
+    function eAuth(e){
+      e.preventDefault();
+      closeDialog('dlg-auth');
+      alert('Заявка отправлена на модерацию (демо). После активации в B2B появятся цены и остатки.');
+    }
+    function mockLogin(){
+      closeDialog('dlg-auth');
+      alert('Демо: авторизован как дилер. Индивидуальные цены и остатки доступны на B2B.');
+    }
+
+    // --- Документы / Объекты / Продукт --------------------------------------
+    function downloadDoc(id){ alert('Демо: скачивание '+id); }
+    function openObject(id){ alert('Демо: страница объекта '+id); }
+    function openDocsFor(sku){
+      alert('Демо: показать документы для '+sku);
+      openDocs();
+    }
+    function openProduct(id){
+      const p = DATA.products.find(x=>x.id===id);
+      if(!p) return;
+      $('#product-detail').innerHTML = `
+        <div class="row-h" style="justify-content:space-between; align-items:flex-start">
+          <div>
+            <h3 style="margin:.2rem 0 0 0">${p.title}</h3>
+            <div class="muted">SKU: ${p.sku} • ${p.brand} • ${p.power} кВт • ${typeName(p.type)}</div>
+          </div>
+          <span class="badge">Демо-карточка</span>
+        </div>
+        <div class="row-h" style="margin:1rem 0; gap:1.2rem">
+          <div class="cat-thumb" style="inline-size:20rem; aspect-ratio:4/3"></div>
+          <div class="cat-thumb" style="inline-size:20rem; aspect-ratio:4/3"></div>
+        </div>
+        <h4>Характеристики</h4>
+        <table style="width:100%; border-collapse:collapse; margin:.6rem 0 1.2rem 0">
+          <tr><td style="border-bottom:.1rem solid var(--border); padding:.6rem">Мощность (кВт)</td><td style="border-bottom:.1rem solid var(--border); padding:.6rem">${p.power}</td></tr>
+          <tr><td style="border-bottom:.1rem solid var(--border); padding:.6rem">Бренд</td><td style="border-bottom:.1rem solid var(--border); padding:.6rem">${p.brand}</td></tr>
+          <tr><td style="border-bottom:.1rem solid var(--border); padding:.6rem">Тип</td><td style="border-bottom:.1rem solid var(--border); padding:.6rem">${typeName(p.type)}</td></tr>
+        </table>
+        <h4>Документы</h4>
+        <div class="row-h">
+          ${p.docs.map(t=>`<button class="btn" type="button">${t}</button>`).join('')}
+        </div>
+        <div class="row-h" style="margin-top:1.2rem">
+          <button class="btn btn--primary" type="button" onclick="alert('Демо: отправлена заявка на подбор')">Запросить подбор</button>
+          <button class="btn" type="button" onclick="alert('Демо: коммерческое предложение')">Скачать КП</button>
+        </div>
+      `;
+      openDialog('dlg-product');
+    }
+
+    // --- Выгрузка фида (демо) -----------------------------------------------
+    function exportFeed(){
+      const fmt = $('#feed-format').value;
+      const rows = DATA.products.map(p=>({
+        sku:p.sku, title:p.title, brand:p.brand, type:p.type, power:p.power, price:p.price
+      }));
+      let blob, name = 'feed_demo.'+fmt;
+      if(fmt==='json'){
+        blob = new Blob([JSON.stringify(rows,null,2)], {type:'application/json;charset=utf-8'});
+      }else if(fmt==='csv'){
+        const header = Object.keys(rows[0]).join(';');
+        const body = rows.map(r=>Object.values(r).join(';')).join('\n');
+        blob = new Blob([header+'\n'+body], {type:'text/csv;charset=utf-8'});
+      }else if(fmt==='yml'){
+        const y = ['items:'].concat(rows.map(r=>'  - '+JSON.stringify(r))).join('\n');
+        blob = new Blob([y], {type:'text/yaml;charset=utf-8'});
+      }else{
+        alert('Демо XLSX: используйте CSV/JSON/YML'); return;
+      }
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob); a.download = name; a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    // --- Прочее --------------------------------------------------------------
+    function openPolicy(){ alert('Демо: политика конфиденциальности'); }
+
+    // Запуск
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
+
